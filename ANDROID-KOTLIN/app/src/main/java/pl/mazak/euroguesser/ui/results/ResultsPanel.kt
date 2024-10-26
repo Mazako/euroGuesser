@@ -11,6 +11,7 @@ import androidx.compose.runtime.traceEventEnd
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.modifier.modifierLocalMapOf
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import pl.mazak.euroguesser.ui.AppViewModelProvider
 import pl.mazak.euroguesser.ui.EuroGuesserTopBar
@@ -44,7 +45,7 @@ fun ResultsPanel(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier.padding(innerPadding).fillMaxSize()
         ) {
-            Text("Final Score: ${viewModel.score}")
+            Text(text = "Final Score: ${viewModel.score}", fontSize = 48.sp)
         }
     }
 }

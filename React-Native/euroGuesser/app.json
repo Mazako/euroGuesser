@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "pl.mazak.euroguesser"
+      "package": "pl.mazak.euroguesserNative"
     },
     "web": {
       "bundler": "metro",

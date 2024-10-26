@@ -1,37 +1,52 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import {SplashScreen, Stack} from "expo-router";
+import React, {useEffect} from "react";
+import {Button, StyleProp, TextStyle} from "react-native";
+import {DarkTheme, DefaultTheme, ThemeProvider} from "@react-navigation/native";
+import {AppTheme} from "@/constants/AppTheme";
+import {useFonts} from "expo-font";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+    const [loaded, error] = useFonts({
+        Roboto: require('../assets/fonts/Roboto-Regular.ttf')
+    })
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+    useEffect(() => {
+        if (loaded || error) {
+            SplashScreen.hideAsync();
+        }
+    }, [loaded, error]);
+
+    if (!loaded && !error) {
+        return null;
     }
-  }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
+    const headerTitleStyle: StyleProp<Pick<TextStyle, "fontFamily" | "fontSize" | "fontWeight">> = {
+        fontSize: 24, fontWeight: 'normal', fontFamily: 'Roboto'
+    };
+    return (
+        <ThemeProvider value={AppTheme}>
+            <Stack>
+                <Stack.Screen name="index"
+                              options={{
+                                  title: 'Main Menu',
+                                  headerTitleStyle: headerTitleStyle
+                              }}/>
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
-  );
+                <Stack.Screen name='game'
+                    options={{
+                        title: 'Game',
+                        headerTitleStyle: headerTitleStyle
+                    }}/>
+
+                <Stack.Screen name='results'
+                    options={{
+                        title: 'Results',
+                        headerTitleStyle: headerTitleStyle
+                    }}/>
+            </Stack>
+        </ThemeProvider>
+
+    );
 }

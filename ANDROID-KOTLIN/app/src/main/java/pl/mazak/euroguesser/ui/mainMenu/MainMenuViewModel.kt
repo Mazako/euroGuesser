@@ -33,7 +33,7 @@ class MainMenuViewModel: ViewModel() {
                 return Pair(false, "Too much countries")
             }
             if (count.toInt() <= 0) {
-                return Pair(false, "Too little counties")
+                return Pair(false, "Too little countries")
             }
             return Pair(true, null)
         } catch (e: NumberFormatException) {
