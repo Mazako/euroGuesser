@@ -31,19 +31,24 @@ export default function RootLayout() {
                 <Stack.Screen name="index"
                               options={{
                                   title: 'Main Menu',
-                                  headerTitleStyle: headerTitleStyle
+                                  headerTitleStyle: headerTitleStyle,
+                                  animation: 'fade'
                               }}/>
 
                 <Stack.Screen name='game'
                     options={{
                         title: 'Game',
-                        headerTitleStyle: headerTitleStyle
+                        headerTitleStyle: headerTitleStyle,
+                        animation: 'fade'
+
                     }}/>
 
                 <Stack.Screen name='results'
                     options={{
                         title: 'Results',
-                        headerTitleStyle: headerTitleStyle
+                        headerTitleStyle: headerTitleStyle,
+                        animation: 'fade'
+
                     }}/>
             </Stack>
         </ThemeProvider>
