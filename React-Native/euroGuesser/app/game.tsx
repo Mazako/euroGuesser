@@ -94,9 +94,9 @@ export default function Game() {
                 renderInputOrResponse()
             }
             <Button mode='contained'
-                    style={{marginTop: 'auto'}}
+                    style={{marginTop: 'auto', marginBottom: 24}}
                     onPress={handleButtonClick}>
-                {madeGuess ? 'Next' : 'Select'}
+                {madeGuess ? 'Next' : 'Check'}
             </Button>
 
         </SafeAreaView>

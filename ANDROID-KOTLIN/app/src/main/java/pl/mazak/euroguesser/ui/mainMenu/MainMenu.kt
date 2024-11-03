@@ -101,6 +101,7 @@ fun MainMenu(
                 modifier = Modifier.fillMaxSize()
             ) {
                 Button(
+                    enabled = countValid.first,
                     onClick = { onGameStart(selectedMode, count) },
                     modifier = Modifier.fillMaxWidth()
                 ) {

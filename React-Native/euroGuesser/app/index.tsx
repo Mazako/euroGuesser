@@ -63,7 +63,7 @@ export default function Index() {
                            error={countriesInputLabel !== 'Number of countries'}
                 />
 
-                <Button mode='contained' style={{marginTop: 'auto'}}
+                <Button mode='contained' style={{marginTop: 'auto', marginBottom: 24}}
                         disabled={countriesInputLabel !== 'Number of countries'}
                         onPress={() => {router.push({pathname: '/game', params: {count: countriesSize, mode: mode}})}}>
                     Start
