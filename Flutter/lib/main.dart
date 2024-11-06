@@ -32,7 +32,7 @@ class _MainMenuState extends State<MainMenu> {
     {"name": "France", "flag": "🇫🇷"},
     {"name": "Spain", "flag": "🇪🇸"},
     {"name": "Italy", "flag": "🇮🇹"},
-    // Dodaj więcej krajów, jeśli potrzeba
+
   ];
 
   List<Map<String, String>> _selectedCountries = [];
@@ -161,11 +161,12 @@ class QuizScreen extends StatefulWidget {
   final List<Map<String, String>> allCountries;
   final int dataEntryMode;
 
+  TextEditingController _answerController = TextEditingController();
   QuizScreen({required this.selectedCountries, required this.dataEntryMode, required this.allCountries});
 
   @override
   _QuizScreenState createState() => _QuizScreenState();
-  //TextEditingController _answerController = TextEditingController();
+
 }
 
 class _QuizScreenState extends State<QuizScreen> {
@@ -235,6 +236,7 @@ class _QuizScreenState extends State<QuizScreen> {
             ),
             SizedBox(height: 20),
 
+            if(widget.dataEntryMode == 0)
               GridView.builder(
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -266,7 +268,19 @@ class _QuizScreenState extends State<QuizScreen> {
                   }
                   return null;
                   },
+                ),
+
+            if(widget.dataEntryMode == 1)
+              TextField(
+                controller: widget._answerController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  //errorText: _errorText,
+                ),
               ),
+
+
             SizedBox(height: 20),
             if (_isAnswered)
               Text(
@@ -284,7 +298,7 @@ class _QuizScreenState extends State<QuizScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
-            onPressed: _isAnswered ? () => _nextQuestion() : () => _checkAnswer(options[answer]),
+            onPressed: _isAnswered ? () => _nextQuestion() : widget.dataEntryMode == 0 ? () => _checkAnswer(options[answer]) : () => _checkAnswer(widget._answerController.text),
             child: Text(_isAnswered ? "Next" : "Check"),
             style: ElevatedButton.styleFrom(
             padding: EdgeInsets.symmetric(vertical: 16.0),
