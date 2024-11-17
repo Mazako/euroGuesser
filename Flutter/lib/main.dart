@@ -142,10 +142,10 @@ class _MainMenuState extends State<MainMenu> {
             Center(
               child: ElevatedButton(
                 onPressed: _startQuiz,
-                child: Text("Start"),
+                child: Text("Start", style: TextStyle(color: Colors.white),),
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(1000, 20),
-                  backgroundColor: Color(0xD0BCFFFF),
+                  minimumSize: Size(1000, 40),
+                  backgroundColor: Color(0xFF6650a4),
                 ),
               ),
             ),
@@ -232,7 +232,7 @@ class _QuizScreenState extends State<QuizScreen> {
             SizedBox(height: 20),
             Text(
               currentCountry["flag"]!,
-              style: TextStyle(fontSize: 64),
+              style: TextStyle(fontSize: 130),
             ),
             SizedBox(height: 20),
 
@@ -249,7 +249,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   if (!_isAnswered) {
                     return ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xD0BCFFFF),
+                        backgroundColor: Color(0xFF6650a4),
                       ).copyWith(
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
@@ -262,7 +262,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       },
                       child: Text(
                         options[index],
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     );
                   }
@@ -299,10 +299,11 @@ class _QuizScreenState extends State<QuizScreen> {
         padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
             onPressed: _isAnswered ? () => _nextQuestion() : widget.dataEntryMode == 0 ? () => _checkAnswer(options[answer]) : () => _checkAnswer(widget._answerController.text),
-            child: Text(_isAnswered ? "Next" : "Check"),
+            child: Text(_isAnswered ? "Next" : "Check", style: TextStyle(color: Colors.white),),
             style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(vertical: 16.0),
-            minimumSize: Size(double.infinity, 50),
+              padding: EdgeInsets.symmetric(vertical: 16.0),
+              minimumSize: Size(double.infinity, 50),
+              backgroundColor: Color(0xFF6650a4)
           ),
         ),
       ),
