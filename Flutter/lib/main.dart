@@ -143,7 +143,7 @@ class _MainMenuState extends State<MainMenu> {
             Center(
               child: ElevatedButton(
                 onPressed: _startQuiz,
-                child: Text("Start"),
+                child: Text("Start", style: TextStyle(color: Colors.white),),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(1000, 50),
                   foregroundColor: Colors.white,
@@ -249,7 +249,7 @@ class _QuizScreenState extends State<QuizScreen> {
             SizedBox(height: 20),
             Text(
               currentCountry["flag"]!,
-              style: TextStyle(fontSize: 64),
+              style: TextStyle(fontSize: 130),
             ),
             SizedBox(height: 20),
 
@@ -268,6 +268,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: answer == index ? buttonColorAns : buttonColor,
                         foregroundColor: Colors.white,
+
                       ).copyWith(
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
@@ -283,7 +284,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       },
                       child: Text(
                         _currentOptions[index],
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     );
                   }
@@ -326,6 +327,7 @@ class _QuizScreenState extends State<QuizScreen> {
             backgroundColor:  Color(0xFF6854a4),
             padding: EdgeInsets.symmetric(vertical: 16.0),
             minimumSize: Size(double.infinity, 50),
+
           ),
         ),
       ),
