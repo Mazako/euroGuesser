@@ -19,3 +19,9 @@ W katalogu React-Native wywołać komendę:
 ```bash
 eas build -p android --profile preview
 ```
+
+## Flutter
+W katalogu Flutter wywołać komendę:
+```bash
+build apk --release
+```

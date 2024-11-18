@@ -204,7 +204,7 @@ class _QuizScreenState extends State<QuizScreen> {
     }
 
     if (_currentQuestion >= widget.selectedCountries.length) {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => ResultScreen(score: _score, total: widget.selectedCountries.length),
