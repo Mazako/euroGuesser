@@ -4,6 +4,7 @@ import {Button, StyleProp, TextStyle} from "react-native";
 import {DarkTheme, DefaultTheme, ThemeProvider} from "@react-navigation/native";
 import {AppTheme} from "@/constants/AppTheme";
 import {useFonts} from "expo-font";
+import { Appearance } from 'react-native';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,6 +17,7 @@ export default function RootLayout() {
         if (loaded || error) {
             SplashScreen.hideAsync();
         }
+        Appearance.setColorScheme('light')
     }, [loaded, error]);
 
     if (!loaded && !error) {
