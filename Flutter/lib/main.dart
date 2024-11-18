@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'roboto',
       ),
+      debugShowCheckedModeBanner: false,
       home: MainMenu(),
     );
   }
@@ -144,8 +145,9 @@ class _MainMenuState extends State<MainMenu> {
                 onPressed: _startQuiz,
                 child: Text("Start"),
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(1000, 20),
-                  backgroundColor: Color(0xD0BCFFFF),
+                  minimumSize: Size(1000, 50),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Color(0xFF6854a4),
                 ),
               ),
             ),
@@ -164,6 +166,7 @@ class QuizScreen extends StatefulWidget {
   TextEditingController _answerController = TextEditingController();
   QuizScreen({required this.selectedCountries, required this.dataEntryMode, required this.allCountries});
 
+
   @override
   _QuizScreenState createState() => _QuizScreenState();
 
@@ -174,7 +177,8 @@ class _QuizScreenState extends State<QuizScreen> {
   int _score = 0;
   bool? _isCorrect;
   bool _isAnswered = false;
-  int answer = 0;
+  int answer = -1;
+  List<String> _currentOptions = [];
 
   void _checkAnswer(String userAnswer) {
     if (_isAnswered) return;
@@ -185,6 +189,7 @@ class _QuizScreenState extends State<QuizScreen> {
       _isAnswered = true;
       if (_isCorrect!) _score++;
     });
+    answer = -1;
   }
 
   void _nextQuestion() {
@@ -193,6 +198,10 @@ class _QuizScreenState extends State<QuizScreen> {
       _isAnswered = false;
       _isCorrect = null;
     });
+
+    if (_currentQuestion < widget.selectedCountries.length) {
+      _currentOptions = _generateOptions(widget.selectedCountries[_currentQuestion]["name"]!);
+    }
 
     if (_currentQuestion >= widget.selectedCountries.length) {
       Navigator.push(
@@ -214,12 +223,20 @@ class _QuizScreenState extends State<QuizScreen> {
     return options.toList()..shuffle();
   }
 
+
+  @override
+  void initState() {
+    super.initState();
+    _currentOptions = _generateOptions(widget.selectedCountries[_currentQuestion]["name"]!);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_currentQuestion >= widget.selectedCountries.length) return SizedBox.shrink();
 
     Map<String, String> currentCountry = widget.selectedCountries[_currentQuestion];
-    List<String> options = _generateOptions(currentCountry["name"]!);
+    Color buttonColor = const Color(0xFF6854a4);
+    Color buttonColorAns = const Color(0xFF685c74);
 
     return Scaffold(
       appBar: AppBar(title: Text("Quiz")),
@@ -244,12 +261,13 @@ class _QuizScreenState extends State<QuizScreen> {
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                 ),
-                itemCount: options.length,
+                itemCount: _currentOptions.length,
                 itemBuilder: (context, index) {
                   if (!_isAnswered) {
                     return ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xD0BCFFFF),
+                        backgroundColor: answer == index ? buttonColorAns : buttonColor,
+                        foregroundColor: Colors.white,
                       ).copyWith(
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
@@ -258,10 +276,13 @@ class _QuizScreenState extends State<QuizScreen> {
                         ),
                       ),
                       onPressed: () {
-                        answer = index;
+                        setState(() {
+                          answer = index;
+                        });
+
                       },
                       child: Text(
-                        options[index],
+                        _currentOptions[index],
                         style: TextStyle(fontSize: 18),
                       ),
                     );
@@ -298,9 +319,11 @@ class _QuizScreenState extends State<QuizScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
-            onPressed: _isAnswered ? () => _nextQuestion() : widget.dataEntryMode == 0 ? () => _checkAnswer(options[answer]) : () => _checkAnswer(widget._answerController.text),
+            onPressed: _isAnswered ? () => _nextQuestion() : widget.dataEntryMode == 0 ? () => _checkAnswer(_currentOptions[answer]) : () => _checkAnswer(widget._answerController.text),
             child: Text(_isAnswered ? "Next" : "Check"),
             style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor:  Color(0xFF6854a4),
             padding: EdgeInsets.symmetric(vertical: 16.0),
             minimumSize: Size(double.infinity, 50),
           ),
