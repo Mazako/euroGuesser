@@ -23,5 +23,5 @@ eas build -p android --profile preview
 ## Flutter
 W katalogu Flutter wywołać komendę:
 ```bash
-build apk --release
+flutter build apk --release
 ```
